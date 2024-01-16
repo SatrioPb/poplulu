@@ -67,7 +67,7 @@
 
 
     <!-- Foto Galery -->
-    <section style="height: 44vh;">
+    <section >
         <div class="container mt-5">
             <div class="col-md-8">
                 <div class="card">
