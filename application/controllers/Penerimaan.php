@@ -32,5 +32,20 @@ class Penerimaan extends CI_Controller
 		// Load the order_detail view for admin
 		$this->load->view('penerimaan/lihat', $this->data);
 	}
-	
+	public function update_status()
+	{
+		// Check if the form is submitted
+		if ($this->input->post()) {
+			// Get data from the form
+			$order_id = $this->input->post('order_id');
+			$status = $this->input->post('status');
+
+			// Call a method in your model to update the status
+			$this->load->model('M_order', 'm_order');
+			$this->m_order->updateOrderStatus($order_id, $status);
+
+			// Redirect to the page where the form was submitted
+			redirect('penerimaan/order_detail_admin');
+		}
+	}
 }

@@ -37,4 +37,11 @@ class M_order extends CI_Model
 
         return $query->result();
     }
+    public function updateOrderStatus($order_id, $status)
+    {
+        // Update the status in the database
+        $this->db->set('status', $status);
+        $this->db->where('order_id', $order_id);
+        $this->db->update('orders');
+    }
 }

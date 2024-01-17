@@ -80,10 +80,13 @@
         <div class="container">
             <!-- Product Detail Content -->
             <?php if (!empty($product)) : ?>
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="<?= base_url('./assets/' . $product->gambar) ?>" class="img-fluid rounded" alt="<?= $product->nama_barang ?>">
+                <div class="row border-bottom pb-3 mb-3">
+                    <!-- Product Image -->
+                    <div class="col-md-3">
+                        <img src="<?= base_url('./assets/' . $product->gambar) ?>" class="img-fluid rounded" alt="<?= $product->nama_barang ?>" style="height: 450px;">
                     </div>
+
+                    <!-- Product Details -->
                     <div class="col-md-6">
                         <div class="product-details">
                             <h1 class="mb-3"><?= $product->nama_barang ?></h1>
@@ -93,23 +96,62 @@
                             <p class="text-muted">- <?= $product->deskripsi4 ?></p>
                             <p class="text-muted">- <?= $product->deskripsi5 ?></p>
                             <p class="text-muted">- <?= $product->deskripsi6 ?></p>
-
-                            <!-- Date and Time Selection -->
-                            <div class="form-group">
-                                <label for="datepicker">Tanggal :</label>
-                                <input type="date" class="form-control" id="datepicker" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="timepicker">Jam :</label>
-                                <input type="time" class="form-control" id="timepicker" required>
-                            </div>
-
                             <h4 class="fw-bold">Harga: Rp.<?= $product->harga ?></h4>
-
-                            <!-- Purchase button -->
-                            <a href="#" id="addToCartButton" class="btn btn-success btn-lg" onclick="addToCart()">Keranjang</a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Date and Time Selection -->
+                <div class="row border-bottom pb-3 mb-3">
+                    <div class="col-md-6">
+                        <!-- Date Selection -->
+                        <div class="form-group">
+                            <label for="datepicker">
+                                <h3>Tanggal :</h3>
+                            </label>
+                            <input type="date" class="form-control" id="datepicker" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Time Selection -->
+                        <div class="form-group">
+                            <label for="timepicker">
+                                <h3>Jam :</h3>
+                            </label>
+                            <div class="btn-group" role="group" aria-label="Time selection">
+                                <div class="row g-2">
+                                    <div class="col-2">
+                                        <div class="p-3">
+                                            <button type="button" class="btn text-light" onclick="selectTime('09:00')" style="background-color: #9b0060;">09:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="p-3">
+                                            <button type="button" class="btn text-light" onclick="selectTime('12:00')" style="background-color: #9b0060;">12:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="p-3">
+                                            <button type="button" class="btn text-light " onclick="selectTime('15:00')" style="background-color: #9b0060;">15:00</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="p-3">
+                                            <button type="button" class="btn text-light" onclick="selectTime('18:00')" style="background-color: #9b0060;">18:00</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="selectedTime" name="selectedTime" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchase button -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="#" id="addToCartButton" class="btn  btn-lg text-light" onclick="addToCart()" style="background-color: #9b0060;">Keranjang</a>
                     </div>
                 </div>
             <?php else : ?>
@@ -118,9 +160,9 @@
                 </div>
             <?php endif; ?>
         </div>
+
+
     </section>
-
-
 
     <section style="background-color: #F5E5EF; padding:30px;">
         <div class="container">
@@ -142,14 +184,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
 
     <section>
         <footer class="text-dark" style="padding-top: 40px;">
@@ -192,10 +226,38 @@
 
     </section>
     <script>
+        function selectTime(time) {
+            // Set the selected time to the hidden input
+            document.getElementById('selectedTime').value = time;
+
+            // Remove the 'active' class from all buttons
+            var buttons = document.querySelectorAll('.btn-group button');
+            buttons.forEach(function(button) {
+                button.classList.remove('active');
+            });
+
+            // Add the 'active' class to the clicked button
+            var selectedButton = document.querySelector('.btn-group button[onclick*="' + time + '"]');
+            if (selectedButton) {
+                selectedButton.classList.add('active');
+            }
+        }
+
         function addToCart() {
+            console.log("Button Clicked");
+
             // Get the manually input date and time
             var selectedDate = document.getElementById("datepicker").value;
-            var selectedTime = document.getElementById("timepicker").value;
+            var selectedTime = document.getElementById("selectedTime").value;
+
+            console.log("Selected Date: " + selectedDate);
+            console.log("Selected Time: " + selectedTime);
+
+            // Validate date and time
+            if (!selectedDate || !selectedTime) {
+                alert("Please select both date and time before adding to the cart.");
+                return; // Exit the function if date or time is not selected
+            }
 
             // Generate the URL with date and time as parameters
             var cartUrl = "<?= base_url('cart/add_to_cart/' . $product->kode_barang) ?>";
@@ -205,6 +267,7 @@
             window.location.href = cartUrl;
         }
     </script>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

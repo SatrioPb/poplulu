@@ -31,28 +31,36 @@
 										<th>Jam</th>
 										<th>Harga</th>
 										<th>status</th>
+										<td>Aksi</td>
 										<!-- Add more columns as needed -->
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$total_price = 0;
-									foreach ($order_detail_admin as $order_item) : ?>
+									<?php foreach ($order_detail_admin as $order_item) : ?>
 										<tr>
 											<td><?= $order_item->nama ?></td>
 											<td><?= $order_item->nama_barang ?></td>
 											<td><?= $order_item->selected_date ?></td>
 											<td><?= $order_item->selected_time ?></td>
 											<td><?= $order_item->price ?></td>
-											<td><?= $order_item->status ?></td>
-
+											<td>
+												<form action="<?= base_url('penerimaan/update_status') ?>" method="post">
+													<input type="hidden" name="order_id" value="<?= $order_item->order_id ?>">
+													<select name="status" class="form-control">
+														<option value="diproses" <?= ($order_item->status == 'diproses') ? 'selected' : '' ?>>Diproses</option>
+														<option value="selesai" <?= ($order_item->status == 'selesai') ? 'selected' : '' ?>>Selesai</option>
+														<!-- Add more status options as needed -->
+													</select>
+											</td>
+											<td>
+												<button type="submit" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Update Status</button>
+												</form>
+											</td>
 											<!-- Add more columns as needed -->
 										</tr>
-									<?php
-										// Calculate total price if needed
-										$total_price += $order_item->price;
-									endforeach; ?>
+									<?php endforeach; ?>
 								</tbody>
+
 							</table>
 
 							<!-- <div class="mt-3 text-end">
