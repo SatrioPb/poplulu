@@ -44,7 +44,7 @@
 										<div class="form-row">
 											<div class="form-group col-md-8">
 												<label for="email"><strong>Email</strong></label>
-												<input type="email" name="email" placeholder="Masukkan Email" autocomplete="off" class="form-control" required value="<?= $customer->username ?>">
+												<input type="email" name="username" placeholder="Masukkan Email" autocomplete="off" class="form-control" required value="<?= $customer->username ?>">
 											</div>
 											<div class="form-group col-md-4">
 												<label for="telepon"><strong>Telepon</strong></label>

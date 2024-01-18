@@ -44,8 +44,42 @@ class Penerimaan extends CI_Controller
 			$this->load->model('M_order', 'm_order');
 			$this->m_order->updateOrderStatus($order_id, $status);
 
-			// Redirect to the page where the form was submitted
-			redirect('penerimaan/order_detail_admin');
+			// Fetch the customer's details based on the order
+			$customer_details = $this->m_order->getCustomerDetails($order_id);
+
+			// Check if customer details are available
+			if ($customer_details) {
+				// Generate the WhatsApp message
+				$whatsappMessage = $this->generateWhatsAppMessage($order_id, $status, $customer_details);
+
+				// URL encode the message
+				$encodedMessage = urlencode($whatsappMessage);
+
+				// Generate the WhatsApp link
+				$whatsappLink = "https://api.whatsapp.com/send?phone=$customer_details[telepon]&text=$encodedMessage";
+
+				// Redirect to the WhatsApp link
+				redirect($whatsappLink);
+			} else {
+				// Handle the case when no customer details are found
+				echo "Customer details not found.";
+			}
 		}
+	}
+
+	private function generateWhatsAppMessage($order_id, $status, $customer_details)
+	{
+		// Extract customer details
+		$customer_name = $customer_details['nama'];
+		$order_item_price = $customer_details['price'];
+		$nbarang = $customer_details['nama_barang'];
+
+		// Compose the WhatsApp message
+		$message = "Hi $customer_name,\n\n";
+		$message .= "Pesanan Anda $nbarang di POPO-LULU Telah  $status.\n";
+		$message .= "Dengan Harga: $order_item_price\n\n";
+		$message .= "Thank you for trust with us!";
+
+		return $message;
 	}
 }
