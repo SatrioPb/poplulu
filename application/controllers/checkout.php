@@ -27,21 +27,23 @@ class Checkout extends CI_Controller
     {
         // Get user ID from session
         $user_id = $this->session->userdata('login')['user_id'];
-
         // Get cart items
         $cart_items = $this->m_cart->get_cart_items($user_id);
-
-        // Get selected date and time from the first cart item (assuming all items have the same date and time)
         $selectedDate = $cart_items[0]->selected_date;
         $selectedTime = $cart_items[0]->selected_time;
-
+        $foto = $_FILES['bukti_pembayaran']['name'];
+        $file_tmp = $_FILES['bukti_pembayaran']['tmp_name'];
+        move_uploaded_file($file_tmp, 'bukti/' . $foto);
+        $payment_method = $this->input->post('metode_pembayaran');
+        $payment_proof = $foto;
         // Prepare order data
         $order_data = array(
             'user_id' => $user_id,
-            'status'=>'diproses',
+            'status' => 'diproses',
             'total_amount' => $this->cart->total(),
-            'order_date' => date('Y-m-d H:i:s')
-
+            'order_date' => date('Y-m-d H:i:s'),
+            'pembayaran' => $payment_method,
+            'bukti' => $payment_proof,
             // Add more order details as needed
         );
 
@@ -67,7 +69,6 @@ class Checkout extends CI_Controller
                 $this->db->insert('order_items', $order_item_data);
             }
 
-
             // Clear the user's cart
             $this->m_cart->clear_cart($user_id);
 
@@ -79,6 +80,7 @@ class Checkout extends CI_Controller
             redirect('checkout');
         }
     }
+
 
 
     public function order_detail()

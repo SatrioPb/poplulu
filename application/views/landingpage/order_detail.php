@@ -67,9 +67,9 @@
 
 
     <!-- Foto Galery -->
-    <section >
+    <section>
         <div class="container mt-5">
-            <div class="col-md-8">
+            <div class="col">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="mb-0">Order Detail</h2>
@@ -128,7 +128,7 @@
     <section>
         <footer class="text-dark" style="padding-top: 40px;">
             <div class="footer-top">
-                <div class="container">
+                <div class="container mt-5s">
                     <div class="row gy-5">
                         <div class="col-md-4">
                             <h4 class="logo-text">Popo - Lulu Studio</h4>

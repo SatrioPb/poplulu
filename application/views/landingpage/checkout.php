@@ -103,6 +103,8 @@
                         <h2 class="mb-0">Data Pembeli</h2>
                     </div>
                     <div class="card-body">
+                        <!-- Formulir checkout di sini -->
+
                         <form action="<?= base_url('checkout/process_checkout') ?>" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nama_pembeli" class="form-label">Nama Pembeli:</label>
@@ -127,17 +129,17 @@
 
                             <!-- Add an empty img tag for the QR code -->
                             <div id="qrCodeContainer" class="mb-3">
-                                <img id="qrCodeImage" src="" style="max-width: 100%;">
+                                <img id="qrCodeImage"  style="max-width: 100%;">
                             </div>
-
 
                             <div class="mb-3">
                                 <label for="bukti_pembayaran" class="form-label">Upload Bukti Pembayaran:</label>
-                                <input type="file" name="bukti_pembayaran" class="form-control" accept="image/*" required>
+                                <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Proses Checkout</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -214,8 +216,8 @@
                 // Define the mapping of payment methods to QR code image paths
                 var qrCodePaths = {
                     'dana': 'gambar/person.png',
-                    'bca': 'gambar/grup.png',
-                    'ovo': 'gambar/wisuda.png',
+                    'bca': 'gambar/qris.png',
+                    'ovo': 'gambar/qris.png',
                     // Add more mappings as needed
                 };
 

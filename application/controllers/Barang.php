@@ -35,10 +35,7 @@ class Barang extends CI_Controller
 
 	public function proses_tambah()
 	{
-		if ($this->session->login['role'] == 'petugas') {
-			$this->session->set_flashdata('error', 'Tambah data hanya untuk admin!');
-			redirect('dashboard');
-		}
+
 
 		// Load the upload library
 		$this->load->library('upload');
@@ -101,15 +98,15 @@ class Barang extends CI_Controller
 
 	public function proses_ubah($kode_barang)
 	{
-		$config['upload_path'] = './assets/'; // Specify your upload directory
-		$config['allowed_types'] = 'gif|jpg|png|jpeg';
-		$config['max_size'] = 1000;
-		$config['overwrite'] = true;
+		$foto = $_FILES['gambar']['name'];
+		$file_tmp = $_FILES['gambar']['tmp_name'];
+		move_uploaded_file($file_tmp, 'assets/' . $foto);
+		$uf = $foto;
 		if ($this->session->login['role'] == 'petugas') {
 			$this->session->set_flashdata('error', 'Ubah data hanya untuk admin!');
 			redirect('dashboard');
 		}
-		$upload_data = $this->upload->data();
+		
 		$data = [
 
 			'nama_barang' => $this->input->post('nama_barang'),
@@ -121,7 +118,7 @@ class Barang extends CI_Controller
 			'deskripsi4' => $this->input->post('deskripsi4'),
 			'deskripsi5' => $this->input->post('deskripsi5'),
 			'deskripsi6' => $this->input->post('deskripsi6'),
-			'gambar' => $upload_data['file_name'],
+			'gambar' => $uf,
 		];
 
 		if ($this->m_barang->ubah($data, $kode_barang)) {

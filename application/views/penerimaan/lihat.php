@@ -25,11 +25,12 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Product Name</th>
+										<th>Nama Customer</th>
 										<th>Product Name</th>
 										<th>Tanggal</th>
 										<th>Jam</th>
 										<th>Harga</th>
+										<th>Bukti Pembayaran</th>
 										<th>status</th>
 										<td>Aksi</td>
 										<!-- Add more columns as needed -->
@@ -43,6 +44,7 @@
 											<td><?= $order_item->selected_date ?></td>
 											<td><?= $order_item->selected_time ?></td>
 											<td><?= $order_item->price ?></td>
+											<td> <img src="<?= base_url('./bukti/' . $order_item->bukti) ?>" class="card-img-top" style="object-fit: cover; height: 150px;"></td>
 											<td>
 												<form action="<?= base_url('penerimaan/update_status') ?>" method="post">
 													<input type="hidden" name="order_id" value="<?= $order_item->order_id ?>">

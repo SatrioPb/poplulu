@@ -83,7 +83,6 @@
 															<div class="form-group col-md-6">
 																<label for="gambar">Gambar:</label>
 																<input class="form-control" type="file" name="gambar" id="gambar" />
-
 															</div>
 														</div>
 													</div>
