@@ -19,65 +19,63 @@
 
 <body style="background-color: #9B0060;">
 
-    <div class="container">
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-sm-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-12">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="assets/lamp.png" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height:500px;" />
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <?php if ($this->session->flashdata('success')) : ?>
-                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                <?= $this->session->flashdata('success') ?>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                        <?php elseif ($this->session->flashdata('error')) : ?>
-                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                <?= $this->session->flashdata('error') ?>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                        <?php endif ?>
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Customer!</h1>
-                                    </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+                                    <?php if ($this->session->flashdata('success')) : ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $this->session->flashdata('success') ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    <?php elseif ($this->session->flashdata('error')) : ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <?= $this->session->flashdata('error') ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    <?php endif ?>
                                     <form class="user" method="POST" action="<?= base_url('login_customer/proses_login') ?>">
-                                        <div class="form-group">
+
+                                        <div class="d-flex align-items-center mb-3 pb-1">
+                                            <img src="gambar/logo2.png" alt="" style="width: 150px; height :100px">
+
+                                        </div>
+
+                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Selamat Datang</h5>
+
+                                        <div class="form-outline mb-4">
                                             <input type="text" class="form-control" id="username" placeholder="Enter Your Username" autocomplete="off" required name="username">
                                         </div>
-                                        <div class="form-group">
+
+                                        <div class="form-outline mb-4">
                                             <input type="password" class="form-control" id="password" placeholder="Enter Your Password" required name="password">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block" name="login">
+
+                                        <button type="submit" class="btn text-light btn-block" name="login" style="background-color: #9B0060;">
                                             Login
                                         </button>
                                         <br>
-                                        <center><a style="text-decoration: none;" href="<?= base_url('register') ?>">Don't have an account? Register now</a></center>
-                                    </form>
+                                        <center><a style="text-decoration: none;" href="<?= base_url('register') ?>">Belum Punya Akun? Daftar sekarang</a></center>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
-    </div>
+    </section>
 
     <script src="<?= base_url('sb-admin') ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?= base_url('sb-admin') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
